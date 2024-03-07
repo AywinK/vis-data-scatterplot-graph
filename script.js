@@ -19,12 +19,12 @@ function renderChart() {
 
     // x scale
     const xScale = d3.scaleLinear()
-        .domain([d3.min(data, data => data.Year), d3.max(data, data => data.Year)])
+        .domain([d3.min(data, data => data.Year - 1), d3.max(data, data => data.Year + 1)])
         .range([margin, width - margin]);
 
     // y scale
     const yScale = d3.scaleTime()
-        .domain([d3.min(data, data => new Date(data.Seconds * 1000)), d3.max(data, data => new Date(data.Seconds * 1000))])
+        .domain([d3.max(data, data => new Date(data.Seconds * 1000)), d3.min(data, data => new Date(data.Seconds * 1000))])
         .range([height - margin, margin]);
 
     // create svg chart
@@ -55,6 +55,19 @@ function renderChart() {
         .attr("transform", `translate(${margin},0)`)
         .attr("id", "y-axis")
         .call(d3.axisLeft(yScale).ticks(12).tickFormat(d3.timeFormat("%M:%S")));
+
+    // add circle for each data point
+    svg.append("g")
+        .attr("fill", "steelblue")
+        .selectAll()
+        .data(data)
+        .join("circle")
+        .attr("class", "dot")
+        .attr("cx", d => xScale(d.Year))
+        .attr("cy", d => yScale(new Date(d.Seconds * 1000)))
+        .attr("r", 5)
+        .attr("data-xvalue", d => d.Year)
+        .attr("data-yvalue", d => (new Date(d.Seconds * 1000)))
 
     // append svg chart to root
     document.getElementById("root").append(svg.node());
