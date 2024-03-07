@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #555555c5;
+}
+
+#root {
+    border-radius: 10px;
+    margin: 10vh auto;
+    padding: 5px;
+    background-color: #f3f3f3e7;
+    box-shadow: 5px 5px 5px #333;
+    max-width: 80vw;
+    height: 80vh;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    >* {
+        margin: 10px auto;
+        border: 0.1rem solid red;
+    }
+}
