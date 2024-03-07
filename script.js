@@ -21,6 +21,7 @@ function renderChart() {
     const xScale = d3.scaleLinear()
         .domain([d3.min(data, data => data.Year - 1), d3.max(data, data => data.Year + 1)])
         .range([margin, width - margin]);
+    console.log(xScale(2015))
 
     // y scale
     const yScale = d3.scaleTime()
@@ -48,7 +49,7 @@ function renderChart() {
     svg.append("g")
         .attr("transform", `translate(0, ${height - margin})`)
         .attr("id", "x-axis")
-        .call(d3.axisBottom(xScale).ticks(2));
+        .call(d3.axisBottom(xScale).ticks(2).tickFormat(d3.format("")));
 
     // add y-axis with ticks
     svg.append("g")
